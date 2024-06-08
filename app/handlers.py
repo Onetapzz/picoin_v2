@@ -6,10 +6,11 @@ import app.keyboards as kb
 
 router = Router()
 
+
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     await message.reply(f"Привет! Твой ID: {message.from_user.id}\nИмя: {message.from_user.first_name}",
-                        reply_markup=kb.settings)
+                        reply_markup=await kb.inline_cars())
 
 
 @router.message(Command("help"))
@@ -24,5 +25,6 @@ async def how_are_you(message: Message):
 
 @router.message(Command("get_photo"))
 async def get_photo(message: Message):
-    await message.answer_photo(photo="AgACAgIAAxkBAAN1ZmRSag7WY-LESpFWFq240Sm5odwAAlPcMRshYCBLWFFf1aSbjOMBAAMCAAN4AAM1BA",
-                               caption = "Классная фотка?")
+    await message.answer_photo(
+        photo="AgACAgIAAxkBAAN1ZmRSag7WY-LESpFWFq240Sm5odwAAlPcMRshYCBLWFFf1aSbjOMBAAMCAAN4AAM1BA",
+        caption="Классная фотка?")
