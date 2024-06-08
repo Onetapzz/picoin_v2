@@ -1,4 +1,5 @@
 from aiogram import F, Router
+from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
@@ -9,5 +10,5 @@ router = Router()
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    await message.reply(f"Привет! Твой ID: {message.from_user.id}\nИмя: {message.from_user.first_name}",
-                        reply_markup=await kb.inline_cars())
+    await message.answer("*Hello! Welcome to PiCoin! 🥇*",
+                        reply_markup=kb.main, parse_mode=ParseMode.MARKDOWN)
