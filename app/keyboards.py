@@ -21,4 +21,4 @@ async def inline_cars():
     for car in cars:
         keyboard.add(InlineKeyboardButton(text=car, url=f"https://www.google.com/search?q={car}"))
 
-    return keyboard.adjust(2).as_markup()
+    return keyboard.adjust(3).as_markup()
