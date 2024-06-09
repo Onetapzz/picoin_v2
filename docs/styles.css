@@ -1,192 +1,196 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    color: White;
-    moz-user-select: none;
-    -o-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	color: White;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 body {
-    display: flex;
-    width: 100VW;
-    height: 100vh;
+	display: flex;
+	width: 100vw;
+	height: 100vh;
 
-    background: linear-gradient(143deg, rgb(188, 132, 25) 0%, rgba(96, 68, 47, 1) 50%, rgb(34, 31, 53) 100%);
-    background-size: cover;
+	background: linear-gradient(
+		143deg,
+		rgb(188, 132, 25) 0%,
+		rgba(96, 68, 47, 1) 50%,
+		rgb(34, 31, 53) 100%
+	);
+	background-size: cover;
 }
 
 .App {
-    display: flex;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: column;
+	display: flex;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	flex-direction: column;
 }
 
 .upper {
-    width: 100%;
-    height: 100%;
-    top: 10%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	height: 100%;
+	top: 10%;
+	display: flex;
+	position: absolute;
+	justify-content: center;
+	align-items: center;
 }
 
 .upper .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 10px;
-    z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 10px;
+	z-index: 1;
 
-    & #coins_counter {
-        font-weight: bold;
-        font-size: 90px;
-        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-    }
+	& #coins_counter {
+		font-weight: bold;
+		font-size: 6vh;
+		text-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+	}
 
-    & #ranking {
-        border: solid 4px rgba(236, 227, 255, 0.48);
-        background-color: rgba(209, 201, 255, 0.28);
-        border-radius: 100px;
-        padding: 0 30px;
-        font-size: 38px;
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        box-shadow: 0 10px 20px 1px rgba(0, 0, 0, 0.16);
-        backdrop-filter: blur(10px);
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
+	& #ranking {
+		border: solid 0.3vh rgba(236, 227, 255, 0.48);
+		background-color: rgba(209, 201, 255, 0.28);
+		border-radius: 100px;
+		padding: 0 2vh;
+		font-size: 2vh;
+		font-family: 'Poppins', sans-serif;
+		font-weight: 400;
+		font-style: normal;
+		box-shadow: 0 10px 20px 1px rgba(0, 0, 0, 0.16);
+		backdrop-filter: blur(10px);
+		text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	}
 
-    & .energy {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        margin-top: -10px;
-        margin-bottom: 20px;
+	& .energy {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		width: 100%;
+		align-items: center;
+		margin-top: -10px;
+		margin-bottom: 20px;
 
-        & .energy-bar {
-            height: 15px;
-            width: 35vw;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 100px;
-            margin-right: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.16);
-        }
+		& .energy-bar {
+			height: 1vh;
+			width: 35vw;
+			background-color: rgba(0, 0, 0, 0.3);
+			border-radius: 100px;
+			margin-right: 10px;
+			overflow: hidden;
+			box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.16);
+		}
 
-        & .energy-fill {
-            height: 100%;
-            background: linear-gradient(90deg, rgba(191, 131, 70, 1) 0%, rgba(244, 208, 165, 1) 100%);
-            width: 100%;
-            transition: width 0.5s;
-            border-radius: 100px;
-        }
+		& .energy-fill {
+			height: 100%;
+			background: linear-gradient(
+				90deg,
+				rgba(191, 131, 70, 1) 0%,
+				rgba(244, 208, 165, 1) 100%
+			);
+			width: 100%;
+			transition: width 0.5s;
+			border-radius: 100px;
+		}
 
-        & .energy_counter {
-            font-size: 25px;
-            color: rgb(255, 255, 255);
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+		& .energy_counter {
+			font-size: 1.5vh;
+			color: rgb(255, 255, 255);
+			font-weight: bold;
+			text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 
-            & .energy-max {
-                font-weight: bold;
-                font-size: 25px;
-                color: rgb(255, 255, 255);
-                text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-            }
-        }
+			& .energy-max {
+				font-weight: bold;
+				font-size: 1.5vh;
+				color: rgb(255, 255, 255);
+				text-shadow: 0 0 10px #fffff;
+			}
+		}
 
-        & .energy_bold {
-            font-weight: bold;
-            font-size: 30px;
-
-        }
-    }
+		& .energy_bold {
+			font-weight: bold;
+			font-size: 2vh;
+		}
+	}
 }
 
 .coin {
-    display: flex;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+	display: flex;
+	position: fixed;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
 
-    & img {
-        display: flex;
-        max-width: 80%;
-        width: 45vh;
-        height: auto;
-        -webkit-filter: drop-shadow(40px 40px 40px rgba(0, 0, 0, 0.5));
-        filter: drop-shadow(40px 40px 40px rgba(0, 0, 0, 0.5));
-    }
+	& img {
+		display: flex;
+		max-width: 80%;
+		width: 45vh;
+		height: auto;
+		-webkit-filter: drop-shadow(40px 40px 40px rgba(0, 0, 0, 0.5));
+		filter: drop-shadow(40px 40px 40px rgba(0, 0, 0, 0.5));
+	}
 }
 
 .footer {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    bottom: 5%
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	bottom: 5%;
 }
 
 .footer .container {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 15px;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 1vh;
 }
 
 .footer .container .button {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 8vh;
+	height: 8vh;
+	border: solid 0.2vh rgba(184, 183, 255, 0.2);
+	background-color: rgba(196, 175, 255, 0.08);
+	border-radius: 1vh;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 165px;
-    height: 165px;
-    border: solid 4px rgba(184, 183, 255, 0.2);
-    background-color: rgba(196, 175, 255, 0.08);
-    border-radius: 20px;
+	& .red_dot_message {
+	}
 
-    & .red_dot_message {
+	& .button_icon {
+		display: flex;
+		width: 45%;
+		height: auto;
+		margin-bottom: 0.01vh;
+		-webkit-filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
+		filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
+	}
 
-    }
-
-    & .button_icon {
-        display: flex;
-        width: 45%;
-        height: auto;
-        margin-bottom: 10px;
-        -webkit-filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
-        filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
-    }
-
-    & .button_name {
-        font-weight: normal;
-        font-size: 24px;
-    }
+	& .button_name {
+		font-weight: normal;
+		font-size: 1.5vh;
+	}
 }
 
 .orange {
-    color: orange;
+	color: orange;
 }
-
