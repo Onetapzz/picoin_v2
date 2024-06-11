@@ -1,14 +1,11 @@
 async function getUser(telegramId) {
 	try {
-		const response = await fetch(
-			`http://app.coin.pi.com/php/api.php/user/${telegramId}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}
-		)
+		const response = await fetch(`../php/api.php/user/${telegramId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
 		if (!response.ok) {
 			throw new Error('Network response was not ok ' + response.statusText)
 		}
@@ -21,7 +18,7 @@ async function getUser(telegramId) {
 
 async function addUser(telegramId, telegramUsername) {
 	try {
-		const response = await fetch('http://app.coin.pi.com/php/api.php', {
+		const response = await fetch('../php/api.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -43,7 +40,7 @@ async function addUser(telegramId, telegramUsername) {
 
 async function updateUser(telegramId, data) {
 	try {
-		const response = await fetch('http://app.coin.pi.com/php/api.php', {
+		const response = await fetch('../php/api.php', {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
