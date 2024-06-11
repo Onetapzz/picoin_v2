@@ -28,7 +28,7 @@
 	display: flex;
 	width: 100vw;
 	height: 10vh;
-	top: 12vh;
+	top: 10vh;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -37,13 +37,15 @@
 }
 
 .app-mobile .upper-block #coins-counter {
-	font-size: 48px;
+	font-size: 9vh;
 	font-weight: bold;
 	text-shadow: 0 5px 10px rgba(24, 22, 55, 0.3);
 }
 
 .app-mobile .upper-block #ranking {
 	display: flex;
+	font-size: 2vh;
+	margin-top: -2vh;
 	padding: 0 10px;
 	border-radius: 100px;
 	border: solid 1px rgba(255, 255, 255, 0.4);
@@ -60,7 +62,7 @@
 }
 
 .app-mobile #coin img {
-	width: 90vw;
+	width: 85vw;
 	max-width: 500px;
 	height: auto;
 	position: absolute;
@@ -71,19 +73,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	left: 50%;
+	width: 100%;
 	position: fixed;
-}
-
-.app-mobile .footer-block #energy-bar {
-	display: flex;
-	position: fixed;
-	width: 90vw;
-	height: 20px;
-	bottom: 15vh;
-	border-radius: 100px;
-	background-color: #00000048;
-	box-shadow: 0 0 10px 1px rgba(24, 22, 55, 0.25);
+	bottom: 13vh;
 }
 
 .app-mobile .footer-block #energy-bar {
@@ -92,9 +84,8 @@
 	align-items: center;
 	position: fixed;
 	width: 90vw;
-	height: 20px;
-	max-width: 450px;
-	bottom: 15vh;
+	height: 2.5vh;
+	bottom: 13vh;
 	border-radius: 100px;
 	background-color: #00000048;
 	box-shadow: 0 0 10px 1px rgba(24, 22, 55, 0.25);
@@ -106,16 +97,14 @@
 	color: white;
 	z-index: 1;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 1.8vh;
 }
 
 .app-mobile .footer-block #energy-bar #energy-fill {
 	display: flex;
-	justify-items: flex-start;
-	align-items: flex-start;
 	position: absolute;
 	width: 100%;
-	padding: 10px;
+	height: 2.5vh;
 	border-radius: 100px;
 	background: linear-gradient(
 		90deg,
@@ -127,25 +116,34 @@
 
 .app-mobile .footer-block #buttons {
 	display: grid;
-	gap: 1.5vw;
+	gap: 2vw;
 	grid-template-columns: repeat(5, 1fr);
 	position: fixed;
-	bottom: 20px;
+	bottom: 2vh;
 }
 .app-mobile .footer-block #buttons .button {
 	display: grid;
 	color: white;
-	gap: 1vw;
+	gap: 0.5vh;
+	height: 10vh;
+	width: 17vw;
 	text-align: center;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: #3c2e5249;
-	padding: 10px;
-	border-radius: 10px;
+	padding: 1vh;
+	border-radius: 1.5vh;
 	border: solid 1px #a596bf49;
 }
 .app-mobile .footer-block #buttons .button img {
-	width: 45px;
+	display: flex;
+	justify-self: center;
+	width: 4vh;
 	height: auto;
+}
+
+.app-mobile .footer-block #buttons .button .button-name {
+	font-size: 1.7vh;
+	font-weight: 300;
 }
