@@ -1,4 +1,5 @@
 import * as telegram from './telegram.js'
+import * as database from './database.js'
 
 // КОНСТАНТЫ
 const coin_object = document.getElementById('coin')
@@ -9,6 +10,8 @@ const energy_fill = document.getElementById('energy-fill')
 
 // ПЕРЕМЕННЫЕ
 let energyIncreaseInterval
+let user_click_power
+let user_name
 
 // СЛУШАТЕЛИ СОБЫТИЙ
 coin_object.addEventListener('click', Event => coinClick())
@@ -16,9 +19,20 @@ coin_object.addEventListener('click', Event => coinClick())
 // ИНИЦИАЛИЗАЦИЯ
 function AppLoad() {
 	energyBarUpdate()
-	telegram.Telegram_Init()
+	telegram.telegramInit()
+	userInfoLoad()
 
 	energyIncreaseInterval = setInterval(() => energyIncrease(1), 1000)
+}
+
+function userInfoLoad() {
+	database.getUser(telegram.telegramGetUserId()).then(user => {
+		user_name = user.telegram_username
+		user_click_power = user.click_power
+		coins_counter.textContent = user.coins
+		energy_current.textContent = user.energy
+		energy_max.textContent = user.energy_max
+	})
 }
 
 // ОБРАБОТЧИК НАЖАТИЯ КНОПКИ

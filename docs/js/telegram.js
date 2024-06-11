@@ -1,16 +1,20 @@
-export function Telegram_Init() {
-	// Инициализация Telegram Web App
-	let tg = window.Telegram.WebApp
-	tg.expand()
+let tg
+function telegramInit() {
+	try {
+		tg = window.Telegram.WebApp
+		tg.expand()
+	} catch {
+		console.log(1)
+	}
+}
 
-	// Получение данных пользователя
+function telegramGetUserId() {
 	let user = tg.initDataUnsafe.user
 	if (user) {
-		console.log('User ID: ', user.id)
-		console.log('First Name: ', user.first_name)
-		console.log('Last Name: ', user.last_name)
-		console.log('Username: ', user.username)
+		return user.id
 	} else {
 		console.log('Пользователь не авторизован')
 	}
 }
+
+export { telegramInit, telegramGetUserId }
