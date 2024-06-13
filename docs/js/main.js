@@ -10,6 +10,7 @@ const energy_fill = document.getElementById('energy-fill')
 
 // ПЕРЕМЕННЫЕ
 let energyIncreaseInterval
+let energyBarUpdateInterval
 let user_click_power
 let user_name
 
@@ -23,23 +24,23 @@ function AppLoad() {
 	userInfoLoad()
 
 	energyIncreaseInterval = setInterval(() => energyIncrease(1), 1000)
+	energyBarUpdateInterval = setInterval(() => energyBarUpdate(), 100)
 }
 
 function userInfoLoad() {
-	database.getUser(telegram.telegramGetUserId()).then(user => {
+	database.getUser(997368154).then(user => {
 		user_name = user.telegram_username
-		user_click_power = user.click_power
+		user_click_power = Number(user.click_power)
 		coins_counter.textContent = user.coins
 		energy_current.textContent = user.energy
-		energy_max.textContent = user.energy_max
+		energy_max.textContent = user.max_energy
 	})
 }
 
 // ОБРАБОТЧИК НАЖАТИЯ КНОПКИ
 function coinClick() {
 	clearInterval(energyIncreaseInterval)
-	energyBarUpdate()
-	coinsIncrease(1)
+	coinsIncrease(user_click_power)
 	energyDecrease(1)
 	energyIncreaseInterval = setInterval(() => energyIncrease(1), 1000)
 }
@@ -57,7 +58,6 @@ function energyIncrease(energyAmount) {
 		energy_current.textContent =
 			Number(energy_current.textContent) + energyAmount
 	}
-	energyBarUpdate()
 }
 
 // ФУНКЦИЯ УМЕНЬШЕНИЯ ЭНЕРГИИ
@@ -66,7 +66,6 @@ function energyDecrease(energyAmount) {
 		energy_current.textContent =
 			Number(energy_current.textContent) - energyAmount
 	}
-	energyBarUpdate()
 }
 
 // ОБНОВЛЕНИЕ ПОЛОСЫ ЭНЕРГИИ
