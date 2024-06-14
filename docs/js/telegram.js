@@ -1,5 +1,5 @@
 let tg
-function telegramInit() {
+export function telegramInit() {
 	try {
 		tg = window.Telegram.WebApp
 		tg.expand()
@@ -8,7 +8,7 @@ function telegramInit() {
 	}
 }
 
-function telegramGetUserId() {
+export function telegramGetUserId() {
 	let user = tg.initDataUnsafe.user
 	if (user) {
 		return user.id
@@ -17,4 +17,11 @@ function telegramGetUserId() {
 	}
 }
 
-export { telegramInit, telegramGetUserId }
+export function telegramGetUsername() {
+	let user = tg.initDataUnsafe.user
+	if (user) {
+		return user.username
+	} else {
+		console.log('Пользователь не авторизован')
+	}
+}

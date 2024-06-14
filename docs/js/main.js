@@ -11,49 +11,57 @@ const energy_fill = document.getElementById('energy-fill')
 // ПЕРЕМЕННЫЕ
 let energyIncreaseInterval
 let energyBarUpdateInterval
-let user_click_power
-let user_name
 
 // СЛУШАТЕЛИ СОБЫТИЙ
 coin_object.addEventListener('click', Event => coinClick())
 
 // ИНИЦИАЛИЗАЦИЯ
-function AppLoad() {
-	energyBarUpdate()
+async function AppLoad() {
 	telegram.telegramInit()
+
 	userInfoLoad()
 
 	energyIncreaseInterval = setInterval(() => energyIncrease(1), 1000)
 	energyBarUpdateInterval = setInterval(() => energyBarUpdate(), 100)
 }
 
-function userInfoLoad() {
-	database.getUser(997368154).then(user => {
-		user_name = user.telegram_username
-		user_click_power = Number(user.click_power)
-		coins_counter.textContent = user.coins
-		energy_current.textContent = user.energy
-		energy_max.textContent = user.max_energy
-	})
+async function userInfoLoad() {
+	const telegram_id = 123
+	const user = database.getUser(telegram_id)
+	alert(user.coins)
+
+	// try {
+	// 	let username = user.telegram_username
+	// 	let coins = user.coins
+	// 	let energy = user.energy
+	// 	let max_energy = user.max_energy
+	// 	let hexagons = user.hexagons
+	// 	let pentagons = user.pentagons
+	// 	let squares = user.squares
+	// 	let triangles = user.triangles
+	// 	let circles = user.circles
+	// } catch (error) {
+	// 	throw error
+	// }
 }
 
 // ОБРАБОТЧИК НАЖАТИЯ КНОПКИ
-function coinClick() {
+async function coinClick() {
 	clearInterval(energyIncreaseInterval)
 	coinsIncrease(user_click_power)
-	energyDecrease(1)
+	energyDecrease(user_click_power)
 	energyIncreaseInterval = setInterval(() => energyIncrease(1), 1000)
 }
 
 // ФУНКЦИЯ УВЕЛИЧЕНИЯ МОНЕТ
-function coinsIncrease(coinsAmount) {
+async function coinsIncrease(coinsAmount) {
 	if (Number(energy_current.textContent) > 0) {
 		coins_counter.textContent = Number(coins_counter.textContent) + coinsAmount
 	}
 }
 
 // ФУНКЦИЯ УВЕЛИЧЕНИЯ ЭНЕРГИИ
-function energyIncrease(energyAmount) {
+async function energyIncrease(energyAmount) {
 	if (Number(energy_current.textContent) < Number(energy_max.textContent)) {
 		energy_current.textContent =
 			Number(energy_current.textContent) + energyAmount
@@ -61,7 +69,7 @@ function energyIncrease(energyAmount) {
 }
 
 // ФУНКЦИЯ УМЕНЬШЕНИЯ ЭНЕРГИИ
-function energyDecrease(energyAmount) {
+async function energyDecrease(energyAmount) {
 	if (Number(energy_current.textContent) > 0) {
 		energy_current.textContent =
 			Number(energy_current.textContent) - energyAmount
@@ -69,7 +77,7 @@ function energyDecrease(energyAmount) {
 }
 
 // ОБНОВЛЕНИЕ ПОЛОСЫ ЭНЕРГИИ
-function energyBarUpdate() {
+async function energyBarUpdate() {
 	let energy_current_num = Number(energy_current.textContent)
 	let energy_max_num = Number(energy_max.textContent)
 	energy_fill.style.width = `${

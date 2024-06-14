@@ -1,103 +1,108 @@
 <?php
-// Подключение к базе данных
-require_once 'connect.php';
-
-// Установка заголовка для ответа в формате JSON
 header('Content-Type: application/json');
+$servername = "62.109.1.101";
+$username = "picoin";
+$password = "alqpzmxn";
+$dbname = "picoin";
 
-// Функция для отправки ответа
-function response($data, $status = 200) {
-    http_response_code($status);
-    echo json_encode($data);
-    exit();
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
 
-// Получение метода запроса
+// Determine request method
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Обработка различных методов запроса
 switch ($method) {
     case 'GET':
-        handleGetRequest();
+        handleGet($conn);
         break;
     case 'POST':
-        handlePostRequest();
+        handlePost($conn);
         break;
     case 'PUT':
-        handlePutRequest();
+        handlePut($conn);
+        break;
+    case 'DELETE':
+        handleDelete($conn);
         break;
     default:
-        response(['message' => 'Method not allowed'], 405);
+        echo json_encode(["error" => "Unsupported request method"]);
+        break;
 }
 
-// Обработка GET-запросов
-function handleGetRequest() {
-    global $link;
-    $request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
+$conn->close();
 
-    if (count($request) == 2 && $request[0] == 'user') {
-        $telegram_id = $request[1];
-        $query = "SELECT * FROM users WHERE telegram_id='$telegram_id'";
-        $result = mysqli_query($link, $query);
+// Handler for GET requests
+function handleGet($conn) {
+    if (isset($_GET['telegram_id'])) {
+        $telegram_id = $conn->real_escape_string($_GET['telegram_id']);
+        $sql = "SELECT * FROM users WHERE telegram_id = '$telegram_id'";
+        $result = $conn->query($sql);
 
-        if ($result) {
-            $user = mysqli_fetch_assoc($result);
-            if ($user) {
-                response($user);
-            } else {
-                response(['message' => 'User not found'], 404);
-            }
+        if ($result->num_rows > 0) {
+            echo json_encode($result->fetch_assoc());
         } else {
-            response(['message' => 'Database error: ' . mysqli_error($link)], 500);
+            echo json_encode(["error" => "No record found"]);
         }
     } else {
-        response(['message' => 'Bad request'], 400);
+        echo json_encode(["error" => "Invalid telegram_id"]);
     }
 }
 
-// Обработка POST-запросов
-function handlePostRequest() {
-    global $link;
-    $input = json_decode(file_get_contents('php://input'), true);
+// Handler for POST requests
+function handlePost($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+    if ($data && isset($data['telegram_id']) && isset($data['telegram_username'])) {
+        $telegram_id = $conn->real_escape_string($data['telegram_id']);
+        $telegram_username = $conn->real_escape_string($data['telegram_username']);
+        $sql = "INSERT INTO users (telegram_id, telegram_username) VALUES ('$telegram_id', '$telegram_username')";
 
-    if (isset($input['telegram_id']) && isset($input['telegram_username'])) {
-        $telegram_id = $input['telegram_id'];
-        $telegram_username = $input['telegram_username'];
-        $query = "INSERT INTO users (telegram_id, telegram_username) VALUES ('$telegram_id', '$telegram_username')";
-
-        if (mysqli_query($link, $query)) {
-            response(['message' => 'User added successfully']);
+        if ($conn->query($sql) === TRUE) {
+            echo json_encode(["message" => "New record created successfully"]);
         } else {
-            response(['message' => 'Database error: ' . mysqli_error($link)], 500);
+            echo json_encode(["error" => "Error: " . $conn->error]);
         }
     } else {
-        response(['message' => 'Bad request'], 400);
+        echo json_encode(["error" => "Invalid input"]);
     }
 }
 
-// Обработка PUT-запросов
-function handlePutRequest() {
-    global $link;
-    $input = json_decode(file_get_contents('php://input'), true);
+// Handler for PUT requests
+function handlePut($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+    if ($data && isset($data['id']) && isset($data['telegram_id']) && isset($data['telegram_username'])) {
+        $id = intval($data['id']);
+        $telegram_id = $conn->real_escape_string($data['telegram_id']);
+        $telegram_username = $conn->real_escape_string($data['telegram_username']);
+        $sql = "UPDATE users SET telegram_id = '$telegram_id', telegram_username = '$telegram_username' WHERE id = $id";
 
-    if (isset($input['telegram_id']) && isset($input['data'])) {
-        $telegram_id = $input['telegram_id'];
-        $data = $input['data'];
-        $set = [];
-
-        foreach ($data as $key => $value) {
-            $set[] = "$key='$value'";
-        }
-        $set = implode(',', $set);
-        $query = "UPDATE users SET $set WHERE telegram_id='$telegram_id'";
-
-        if (mysqli_query($link, $query)) {
-            response(['message' => 'User updated successfully']);
+        if ($conn->query($sql) === TRUE) {
+            echo json_encode(["message" => "Record updated successfully"]);
         } else {
-            response(['message' => 'Database error: ' . mysqli_error($link)], 500);
+            echo json_encode(["error" => "Error: " . $conn->error]);
         }
     } else {
-        response(['message' => 'Bad request'], 400);
+        echo json_encode(["error" => "Invalid input"]);
+    }
+}
+
+// Handler for DELETE requests
+function handleDelete($conn) {
+    if (isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $sql = "DELETE FROM users WHERE id = $id";
+
+        if ($conn->query($sql) === TRUE) {
+            echo json_encode(["message" => "Record deleted successfully"]);
+        } else {
+            echo json_encode(["error" => "Error: " . $conn->error]);
+        }
+    } else {
+        echo json_encode(["error" => "Invalid ID"]);
     }
 }
 ?>
